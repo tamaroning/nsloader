@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
 
     Hle::System system;
-    system.load();
+    system.load(filename);
 
     return EXIT_SUCCESS;
 }

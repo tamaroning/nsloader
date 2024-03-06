@@ -1,4 +1,5 @@
 ## LSP
+
 1. Install clangd.
 2. Create .clangd:
 

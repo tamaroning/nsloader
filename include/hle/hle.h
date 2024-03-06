@@ -9,7 +9,7 @@ class System {
 
     ~System();
 
-    void load();
+    void load(std::string_view filename);
 
   private:
     class Impl;
