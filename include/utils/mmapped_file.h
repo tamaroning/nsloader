@@ -16,7 +16,7 @@ class MmappedFile {
     ~MmappedFile();
 
     std::size_t get_size() const;
-    const void *get_address() const;
+    const u8 *get_address() const;
 
   private:
     ipc::file_mapping map;

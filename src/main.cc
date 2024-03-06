@@ -1,4 +1,4 @@
-#include "hle/hle.h"
+#include "core/system.h"
 #include "nsloader.h"
 #include "utils/log.h"
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    Hle::System system;
+    Core::System system;
     system.load(filename);
 
     return EXIT_SUCCESS;

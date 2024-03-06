@@ -7,10 +7,15 @@
 #include "swap.h"
 
 namespace NSLoader {
+namespace Core {
 namespace Hle {
 namespace Loader {
 
 // https://switchbrew.org/wiki/NSO
+
+constexpr int TEXT_SHNDX = 0;
+constexpr int RODATA_SHNDX = 1;
+constexpr int DATA_SHNDX = 2;
 
 struct NSOSegmentHeader {
     u32_le offset;
@@ -61,4 +66,5 @@ static_assert(sizeof(NSOArgumentHeader) == 0x20);
 
 } // namespace Loader
 } // namespace Hle
+} // namespace Core
 } // namespace NSLoader

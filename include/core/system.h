@@ -3,7 +3,7 @@
 #include "nsloader.h"
 
 namespace NSLoader {
-namespace Hle {
+namespace Core {
 
 class System {
   public:
@@ -18,5 +18,5 @@ class System {
     std::unique_ptr<Impl> impl;
 };
 
-} // namespace Hle
+} // namespace Core
 } // namespace NSLoader

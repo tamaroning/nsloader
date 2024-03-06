@@ -3,6 +3,7 @@
 #include "utils/log.h"
 
 namespace NSLoader {
+namespace Core {
 namespace Hle {
 namespace Loader {
 
@@ -17,4 +18,5 @@ class NSOLoader {
 
 } // namespace Loader
 } // namespace Hle
+} // namespace Core
 } // namespace NSLoader
