@@ -12,4 +12,6 @@ make
 nsloader <FILE.nso>
 ```
 
+## License
 
+MIT

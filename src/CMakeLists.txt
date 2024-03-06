@@ -6,7 +6,8 @@ target_sources(nsloader PRIVATE
     )
 target_link_libraries(nsloader PRIVATE
     common
-    spdlog::spdlog
+    utils
     )
 
 add_subdirectory(cli)
+add_subdirectory(utils)
