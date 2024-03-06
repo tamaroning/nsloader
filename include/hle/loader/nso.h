@@ -1,12 +1,16 @@
 // SPDX-FileCopyrightText: Copyright 2018 yuzu Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 #include "nsloader.h"
 #include "swap.h"
 
 namespace NSLoader {
 namespace Hle {
 namespace Loader {
+
+// https://switchbrew.org/wiki/NSO
 
 struct NSOSegmentHeader {
     u32_le offset;
@@ -41,7 +45,7 @@ struct NSOHeader {
     RODataRelativeExtent dynsyn_extent;
     std::array<SHA256Hash, 3> segment_hashes;
 
-    bool is_segment_compressed(size_t segment_ndx) const;
+    bool is_segment_compressed(size_t shndx) const;
 };
 static_assert(sizeof(NSOHeader) == 0x100);
 static_assert(std::is_trivially_copyable_v<NSOHeader>);

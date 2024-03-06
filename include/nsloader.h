@@ -1,4 +1,20 @@
+#pragma once
+
+#include <array>
+#include <cassert>
 #include <cstdint>
+#include <cstdlib>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <optional>
+#include <queue>
+#include <source_location>
+#include <span>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace NSLoader {
 

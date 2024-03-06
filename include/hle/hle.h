@@ -1,4 +1,6 @@
-#include <memory>
+#pragma once
+
+#include "nsloader.h"
 
 namespace NSLoader {
 namespace Hle {

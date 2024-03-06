@@ -1,11 +1,12 @@
-#include "utils/log.h"
 #include "hle/hle.h"
-#include <cstdlib>
+#include "nsloader.h"
+#include "utils/log.h"
 
 using namespace NSLoader;
 
 int main(int argc, char *argv[]) {
     Utils::init_logger();
+    Utils::set_log_level(Utils::LogLevel::DEBUG);
 
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " "
@@ -18,7 +19,6 @@ int main(int argc, char *argv[]) {
         std::cerr << "No ROM specified." << std::endl;
         return EXIT_FAILURE;
     }
-
 
     Hle::System system;
     system.load(filename);
