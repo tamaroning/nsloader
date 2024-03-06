@@ -4,6 +4,7 @@
 #include <spdlog/spdlog.h>
 #include <string>
 
+namespace NSLoader {
 namespace Utils {
 
 enum class LogLevel {
@@ -62,3 +63,4 @@ template <typename... Args>
 }
 
 } // namespace Utils
+} // namespace NSLoader

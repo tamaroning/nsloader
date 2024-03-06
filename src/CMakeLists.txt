@@ -7,7 +7,8 @@ target_sources(nsloader PRIVATE
 target_link_libraries(nsloader PRIVATE
     common
     utils
+    hle
     )
 
-add_subdirectory(cli)
 add_subdirectory(utils)
+add_subdirectory(hle)

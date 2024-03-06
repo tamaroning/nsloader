@@ -2,6 +2,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/spdlog.h>
 
+namespace NSLoader {
 namespace Utils {
 constexpr int NUM_BACKTRACE_LOG = 32;
 
@@ -50,3 +51,4 @@ void set_log_level(LogLevel level) {
 }
 
 } // namespace Utils
+} // namespace NSLoader

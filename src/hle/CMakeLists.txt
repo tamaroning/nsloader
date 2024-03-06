@@ -1,1 +1,8 @@
-cmake_minimum_required(VERSION 3.16)
+add_library(hle STATIC)
+target_sources(hle PRIVATE
+    hle.cc
+    loader/loader.cc
+)
+target_link_libraries(hle PUBLIC
+    common
+)
