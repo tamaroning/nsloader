@@ -4,8 +4,6 @@
 
 using namespace NSLoader;
 
-constexpr int NUM_BACKTRACE_LOG = 5;
-
 int main(int argc, char *argv[]) {
     Utils::init_logger();
 

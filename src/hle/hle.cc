@@ -9,7 +9,7 @@ struct System::Impl {
     explicit Impl(System &system) {}
 
     void load(System &system, std::string_view filename) {
-        Loader loader = Loader();
+        Loader::NSOLoader loader = Loader::NSOLoader();
         loader.load(filename);
     }
 };

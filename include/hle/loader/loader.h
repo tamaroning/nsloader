@@ -2,15 +2,17 @@
 
 namespace NSLoader {
 namespace Hle {
+namespace Loader {
 
-class Loader {
+class NSOLoader {
   public:
-    explicit Loader();
+    explicit NSOLoader();
 
-    ~Loader();
+    ~NSOLoader();
 
     void load(std::string_view filename);
 };
 
+} // namespace Loader
 } // namespace Hle
 } // namespace NSLoader

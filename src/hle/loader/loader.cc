@@ -3,15 +3,17 @@
 
 namespace NSLoader {
 namespace Hle {
+namespace Loader {
 
-Loader::Loader() {}
+NSOLoader::NSOLoader() {}
 
-Loader::~Loader() {}
+NSOLoader::~NSOLoader() {}
 
-void Loader::load(std::string_view filename) {
+void NSOLoader::load(std::string_view filename) {
     Utils::critical("Load {}", filename);
     Utils::unimplemented("load");
 }
 
+} // namespace Loader
 } // namespace Hle
 } // namespace NSLoader
