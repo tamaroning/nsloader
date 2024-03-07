@@ -6,7 +6,7 @@ namespace NSLoader {
 namespace Core {
 
 struct System::Impl {
-    explicit Impl(System &system) {}
+    explicit Impl() {}
 
     void load(System &system, std::string_view filename) {
         Hle::Loader::NSOLoader loader = Hle::Loader::NSOLoader();
@@ -14,7 +14,7 @@ struct System::Impl {
     }
 };
 
-System::System() : impl{std::make_unique<Impl>(*this)} {}
+System::System() : impl() {}
 
 System::~System() = default;
 

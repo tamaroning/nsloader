@@ -1,8 +1,10 @@
 #include "core/hle/loader/loader.h"
+#include "core/hle/kernel/proc_memory.h"
 #include "core/hle/loader/nso.h"
 #include "nsloader.h"
 #include "utils/log.h"
 #include "utils/mmapped_file.h"
+#include <cstring>
 
 namespace NSLoader {
 namespace Core {
@@ -14,7 +16,7 @@ NSOLoader::NSOLoader() {}
 NSOLoader::~NSOLoader() {}
 
 void NSOLoader::load(std::string_view filename) {
-    Utils::debug("Load {}", filename);
+    Utils::debug("Loading {}", filename);
 
     Utils::MmappedFile mfile(filename.data());
 
@@ -27,14 +29,21 @@ void NSOLoader::load(std::string_view filename) {
         exit(EXIT_FAILURE);
     }
 
+    Kernel::KProcMemory program_image;
+
     const NSOHeader *nso_header = reinterpret_cast<const NSOHeader *>(addr);
+    for (int i = 0; i < nso_header->segments.size(); i++) {
+        const NSOSegmentHeader seg_header = nso_header->segments[i];
+        auto loc = seg_header.location;
+        auto offset = seg_header.offset;
+        auto size = seg_header.size;
 
-    const NSOSegmentHeader rodata_header = nso_header->segments[RODATA_SHNDX];
-    std::string rodata(addr + rodata_header.offset,
-                       addr + rodata_header.offset + rodata_header.size);
+        program_image.resize(loc + size);
+        std::memcpy(program_image.data(), addr + offset, size);
+        Utils::debug("segment: address: {:#x} ({:#x} bytes)", loc, size);
+    }
 
-    Utils::unimplemented("load");
-    Utils::debug("Load completed.");
+    Utils::debug("Loaded program image");
 }
 
 } // namespace Loader
