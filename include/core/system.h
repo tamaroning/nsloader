@@ -11,7 +11,7 @@ class System {
 
     ~System();
 
-    void load(std::string_view filename);
+    void start(std::string_view filename);
 
   private:
     class Impl;

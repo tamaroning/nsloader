@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 add_subdirectory(third_party/spdlog)
+add_subdirectory(third_party/dynarmic)
 
 add_library(common INTERFACE)
 target_compile_features(common INTERFACE cxx_std_20)

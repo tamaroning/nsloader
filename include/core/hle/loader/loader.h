@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/log.h"
+#include "core/hle/kernel/proc.h"
 
 namespace NSLoader {
 namespace Core {
@@ -13,7 +13,7 @@ class NSOLoader {
 
     ~NSOLoader();
 
-    void load(std::string_view filename);
+    std::optional<Kernel::KProcess> load(std::string_view filename);
 };
 
 } // namespace Loader

@@ -1,3 +1,4 @@
+#pragma once
 #include "proc_memory.h"
 
 namespace NSLoader {
@@ -12,6 +13,10 @@ class KProcess {
     explicit KProcess();
 
     ~KProcess();
+
+    KProcess(const KProcess &other) = delete;
+
+    KProcess(KProcess &&src) = default;
 
     void load_memory(std::unique_ptr<KProcMemory> memory_);
 

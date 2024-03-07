@@ -1,4 +1,5 @@
 #include "core/hle/loader/loader.h"
+#include "core/hle/kernel/proc.h"
 #include "core/hle/kernel/proc_memory.h"
 #include "core/hle/loader/nso.h"
 #include "nsloader.h"
@@ -15,7 +16,7 @@ NSOLoader::NSOLoader() {}
 
 NSOLoader::~NSOLoader() {}
 
-void NSOLoader::load(std::string_view filename) {
+std::optional<Kernel::KProcess> NSOLoader::load(std::string_view filename) {
     Utils::debug("Loading {}", filename);
 
     Utils::MmappedFile mfile(filename.data());
@@ -26,7 +27,7 @@ void NSOLoader::load(std::string_view filename) {
     if (addr[0] != 'N' || addr[1] != 'S' || addr[2] != 'O' || addr[3] != '0') {
         Utils::critical("Invalid magic %c%c%c%c", addr[0], addr[1], addr[2],
                         addr[3]);
-        exit(EXIT_FAILURE);
+        return std::nullopt;
     }
 
     Kernel::KProcMemory program_image;
@@ -43,7 +44,11 @@ void NSOLoader::load(std::string_view filename) {
         Utils::debug("segment: address: {:#x} ({:#x} bytes)", loc, size);
     }
 
+    Kernel::KProcess process;
+    process.load_memory(std::make_unique<Kernel::KProcMemory>(program_image));
+
     Utils::debug("Loaded program image");
+    return process;
 }
 
 } // namespace Loader
