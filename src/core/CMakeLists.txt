@@ -5,6 +5,8 @@ target_sources(core PUBLIC
 target_link_libraries(core PUBLIC
     common
     hle
+    cpu
 )
 
 add_subdirectory(hle)
+add_subdirectory(cpu)

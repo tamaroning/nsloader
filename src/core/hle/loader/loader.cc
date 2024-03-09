@@ -44,8 +44,12 @@ std::optional<Kernel::KProcess> NSOLoader::load(std::string_view filename) {
         Utils::debug("segment: address: {:#x} ({:#x} bytes)", loc, size);
     }
 
-    Kernel::KProcess process;
-    process.load_memory(std::make_unique<Kernel::KProcMemory>(program_image));
+    // TODO: clear bss segment
+
+    // TODO: TLS?
+
+    Kernel::KProcess process{
+        std::make_unique<Kernel::KProcMemory>(program_image)};
 
     Utils::debug("Loaded program image");
     return process;

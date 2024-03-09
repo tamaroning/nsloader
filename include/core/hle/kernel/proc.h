@@ -10,7 +10,7 @@ class KProcess {
   public:
     enum class State { Runnable, Blocked };
 
-    explicit KProcess();
+    explicit KProcess(std::unique_ptr<KProcMemory> memory_);
 
     ~KProcess();
 

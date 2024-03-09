@@ -5,12 +5,9 @@ namespace Core {
 namespace Kernel {
 
 /* Class representing a single kernel process */
-KProcess::KProcess() {}
+KProcess::KProcess(std::unique_ptr<KProcMemory> memory_)
+    : memory(std::move(memory_)) {}
 KProcess::~KProcess() {}
-
-void KProcess::load_memory(std::unique_ptr<KProcMemory> memory_) {
-    memory = std::move(memory_);
-}
 
 void KProcess::set_state(KProcess::State state_) { state = state_; }
 

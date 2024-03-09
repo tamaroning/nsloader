@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     }
 
     Core::System system;
-    system.start(filename);
+    system.run(filename);
 
     return EXIT_SUCCESS;
 }
