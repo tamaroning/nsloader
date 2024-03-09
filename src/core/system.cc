@@ -8,6 +8,8 @@
 namespace NSLoader {
 namespace Core {
 
+constexpr u64 TICKS_PER_ITER = 1000;
+
 struct System::Impl {
   public:
     explicit Impl(System &system) : cpu{system} {}
@@ -23,6 +25,10 @@ struct System::Impl {
         Kernel::KProcess proc = std::move(proc_opt.value());
 
         // Run the kernel process
+        Utils::debug("Running kproc");
+        while (true) {
+            cpu.run(proc, TICKS_PER_ITER);
+        }
 
         Utils::unimplemented("Run kproc");
     }

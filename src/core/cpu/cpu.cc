@@ -19,6 +19,7 @@ class CpuCallbacks : public Dynarmic::A64::UserCallbacks {
 
     std::optional<std::uint32_t>
     MemoryReadCode(Dynarmic::VAddr vaddr) override {
+        Utils::unimplemented("ReadCode");
         return MemoryRead32(vaddr);
     }
 
@@ -31,7 +32,7 @@ class CpuCallbacks : public Dynarmic::A64::UserCallbacks {
     }
 
     u32 MemoryRead32(Dynarmic::VAddr vaddr) override {
-        Utils::unimplemented("Rea32");
+        Utils::unimplemented("Read32");
     }
 
     u64 MemoryRead64(Dynarmic::VAddr vaddr) override {
@@ -108,25 +109,56 @@ Cpu::Cpu(System &system) : system(system) {
     // NS has actually 4 cores, but we only use 1 for simplicity
     exclusiveMonitor = new Dynarmic::ExclusiveMonitor(1);
 
-    CpuCallbacks cb{system};
+    cb = new CpuCallbacks{system};
 
     Dynarmic::A64::UserConfig config;
-    config.callbacks = &cb;
+    config.callbacks = cb;
     config.define_unpredictable_behaviour = true;
     config.global_monitor = exclusiveMonitor;
     config.processor_id = 0;
 
-    // FIXME: set the correct values
-    config.tpidr_el0 = 0;
-    config.tpidrro_el0 = 0;
+    config.tpidr_el0 = &tpidr_el0;
+    config.tpidrro_el0 = &tpidrro_el0;
 
     jit = new Dynarmic::A64::Jit(config);
+    jit->Reset();
+    jit->ClearCache();
+    jit->GetRegisters().fill(0);
+    jit->GetVectors().fill(Dynarmic::A64::Vector{});
+
+    jit->SetPC(to_underlying(Kernel::MemoryBase::Application));
+    jit->SetSP(to_underlying(Kernel::MemoryBase::Stack) +
+               Kernel::STACK_PAGES * Kernel::PAGE_SIZE);
+
+    // Set TLS address
+    u64 tls_base = to_underlying(Kernel::MemoryBase::TLS);
+    tpidr_el0 = tls_base;
+    // TODO: tpidrro_el0?
 }
 
 Cpu::~Cpu() {
+    delete cb;
     delete jit;
     delete exclusiveMonitor;
 };
+
+void Cpu::run(Kernel::KProcess &proc, u64 ticks) {
+    Utils::trace("PC: {:#x}", jit->GetPC());
+
+    Dynarmic::HaltReason reason = jit->Run();
+    switch (reason) {
+    case Dynarmic::HaltReason::Step:
+        break;
+    case Dynarmic::HaltReason::CacheInvalidation:
+        Utils::unimplemented("CacheInvalidation");
+        break;
+    case Dynarmic::HaltReason::MemoryAbort:
+        Utils::unimplemented("MemoryAbort");
+        break;
+    default:
+        break;
+    }
+}
 
 } // namespace Cpu
 } // namespace Core
